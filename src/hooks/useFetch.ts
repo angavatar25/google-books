@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 import { apiFetch } from "../helper/api";
 import { database } from "../../firebase";
@@ -7,6 +7,7 @@ import type { TFavourites } from "../interface/interface";
 
 const useFetch = () => {
   const [bookList, setBookList] = useState([]);
+  const [favList, setFavList] = useState([]);
 
   const searchBook = (keyword: string) => {
     const keyQuery = new URLSearchParams({
@@ -20,17 +21,37 @@ const useFetch = () => {
   };
 
   const addToFavourites = async (payload: TFavourites) => {
-    console.log(payload)
     try {
-      const docRef = await addDoc(collection(database, "bookFavourites"), payload);
-
-      console.log("Doc written in", docRef.id);
+      await addDoc(collection(database, "bookFavourites"), payload);
     } catch (e) {
       // do nothing
     }
-  }
+  };
 
-  return { searchBook, addToFavourites, bookList };
+  const fetchFavouriteBooks = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(database, "bookFavourites"));
+  
+      const bookList: any = querySnapshot.docs.map((book) => {
+        const id = book.id;
+        const { author, name, rating, thumbnail } = book.data();
+
+        return {
+          id,
+          author,
+          name,
+          rating,
+          thumbnail
+        }
+      });
+
+      setFavList(bookList);
+    } catch (error) {
+      console.error("Error fetching food list:", error);
+    }
+  };
+
+  return { searchBook, addToFavourites, fetchFavouriteBooks, bookList, favList };
 };
 
 export default useFetch;

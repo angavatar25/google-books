@@ -6,10 +6,12 @@ import Search from "../components/Search";
 import useFetch from "../hooks/useFetch";
 import useSearchBooks from "../hooks/useSearchBooks";
 import Button from "../components/Button";
+import useNavigation from "../hooks/useNavigation";
 
 const Home = () => {
   const { searchBook, addToFavourites, bookList } = useFetch();
   const { keyword, onChangeKeyword } = useSearchBooks();
+  const { redirectToPage } = useNavigation();
 
   const handleSearchBooks = () => {
     searchBook(keyword);
@@ -23,7 +25,7 @@ const Home = () => {
     <div className="p-4 relative">
       <div className="flex justify-between">
         <h1 className="text-4xl font-bold">Search</h1>
-        <Button>
+        <Button onClick={() => redirectToPage('/favourites')}>
           <BookHeart size={14} className="my-auto" />
           <p className="my-auto">See favourites</p>
         </Button>

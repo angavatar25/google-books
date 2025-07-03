@@ -1,6 +1,41 @@
+import { useEffect } from "react";
+import { ChevronLeft } from "lucide-react";
+
+import useFetch from "../hooks/useFetch";
+import Book from "../components/Book";
+import useNavigation from "../hooks/useNavigation";
+
 const Favourites = () => {
+  const { favList, fetchFavouriteBooks } = useFetch();
+  const { redirectToPage } = useNavigation();
+
+  useEffect(() => {
+    fetchFavouriteBooks();
+  }, []);
   return (
-    <p>Fav</p>
+    <div className="p-4">
+      <div className="flex gap-5 mb-10">
+        <button
+          className=" cursor-pointer"
+          onClick={() => redirectToPage("/")}
+        >
+          <ChevronLeft />
+        </button>
+        <h1 className="text-4xl font-bold">Favourites</h1>
+      </div>
+      {favList.length > 0 && favList.map((fav: any, index: number) => (
+        <Book
+          key={`book-${fav.id}`}
+          thumbnail={fav.thumbnail}
+          author={fav.authors}
+          name={fav.name}
+          ratingValue={fav.averageRating ?? 0}
+          index={index}
+          totalBook={fav.length}
+          showFavButton={false}
+        />
+      ))}
+    </div>
   )
 };
 
