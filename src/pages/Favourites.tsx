@@ -6,7 +6,7 @@ import Book from "../components/Book";
 import useNavigation from "../hooks/useNavigation";
 
 const Favourites = () => {
-  const { favList, fetchFavouriteBooks } = useFetch();
+  const { favList, loading, fetchFavouriteBooks } = useFetch();
   const { redirectToPage } = useNavigation();
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const Favourites = () => {
         </button>
         <h1 className="text-4xl font-bold">Favourites</h1>
       </div>
+      {loading && favList.length === 0 && (<p>Loading...</p>)}
       {favList.length > 0 && favList.map((fav: any, index: number) => (
         <Book
           key={`book-${fav.id}`}

@@ -1,6 +1,7 @@
 interface TSearch {
   value: string;
   onEnter: any;
+  placeholder: string;
   onChange: (keyword: string) => void;
 }
 
@@ -19,7 +20,7 @@ const Search = (props: TSearch) => {
       type="text"
       name=""
       id=""
-      placeholder="Insert placeholder"
+      placeholder={props.placeholder}
     />
   )
 };
