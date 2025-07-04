@@ -2,6 +2,8 @@
 
 ## Run with node
 
+Please make sure that you're running on v20.19++ or the latest version of node, as the latest Vite has dropped support for the older Node version (18.x.x)
+
 Run this command line to run the project locally, but install dependency first
 
 ```cli
