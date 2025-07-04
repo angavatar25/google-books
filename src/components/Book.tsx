@@ -4,25 +4,35 @@ import { Rating } from "react-simple-star-rating";
 
 import Button from "./Button";
 import type { TFavourites } from "../interface/interface";
+import { serializedAuthors } from "../helper/serializer";
 
 interface TBook {
-  thumbnail: string;
-  name: string;
-  author: string;
-  ratingValue: number;
+  bookDetail: TBookDetail;
   index: number;
   totalBook: number;
   showFavButton: boolean;
   addToFavourite?: (payload: TFavourites) => void;
 }
 
-const Book = ({ thumbnail, name, author, ratingValue, index, totalBook, showFavButton = true, addToFavourite }: TBook) => {
+interface TBookDetail {
+  imageLinks: {
+    smallThumbnail: string;
+    thumbnail: string;
+  };
+  title: string;
+  authors: string[];
+  averageRating: number;
+}
+
+const Book = ({ bookDetail, index, totalBook, showFavButton = true, addToFavourite }: TBook) => {
+  const { authors, title, averageRating, imageLinks } = bookDetail;
+
   const handleAddToFavourites = () => {
     const payload = {
-      author,
-      name,
-      thumbnail,
-      rating: ratingValue,
+      authors: authors ?? [],
+      title,
+      imageLinks,
+      averageRating: averageRating ?? 0,
     };
 
     addToFavourite?.(payload);
@@ -38,17 +48,17 @@ const Book = ({ thumbnail, name, author, ratingValue, index, totalBook, showFavB
         <div className="max-w-[80px] overflow-hidden rounded-xl">
           <img
             className="w-full"
-            src={thumbnail}
+            src={imageLinks.thumbnail}
             alt=""
           />
         </div>
         <div className="flex justify-between w-full">
           <div className="my-auto flex flex-col gap-2">
-            <p className="text-xl font-semibold max-w-52">{name}</p>
-            <p className="text-sm max-w-52">{author}</p>
+            <p className="text-xl font-semibold max-w-52">{title}</p>
+            <p className="text-sm max-w-52">{serializedAuthors(authors)}</p>
             <Rating
               readonly={true}
-              initialValue={ratingValue}
+              initialValue={averageRating ?? 0}
               size={20}
               SVGstyle={ { 'display':'inline' } }
             />

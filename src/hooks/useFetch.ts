@@ -44,8 +44,9 @@ const useFetch = () => {
   };
 
   const addToFavourites = async (payload: TFavourites) => {
+    console.log(payload);
     try {
-      const { name: bookName } = payload;
+      const { title: bookName } = payload;
 
       const q = query(collection(database, 'bookFavourites'),
         where('name', '==', bookName)
@@ -82,14 +83,14 @@ const useFetch = () => {
   
       const bookList: any = querySnapshot.docs.map((book) => {
         const id = book.id;
-        const { author, name, rating, thumbnail } = book.data();
+        const { authors, title, averageRating, imageLinks } = book.data();
 
         return {
           id,
-          author,
-          name,
-          rating,
-          thumbnail
+          authors,
+          title,
+          averageRating,
+          imageLinks,
         }
       });
 

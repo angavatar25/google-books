@@ -1,15 +1,10 @@
 export interface TFavourites {
   id?: string;
-  author: string;
-  name: string;
-  thumbnail: string;
-  rating: number;
-};
-
-export interface TFavouritesMapping {
-  id?: string;
-  author: string[];
-  name: string;
-  thumbnail: string;
+  authors: string[];
+  title: string;
+  imageLinks: {
+    smallThumbnail: string;
+    thumbnail: string;
+  };
   averageRating: number;
-}
+};
