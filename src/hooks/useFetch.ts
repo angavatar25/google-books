@@ -27,7 +27,7 @@ const useFetch = () => {
       .then((res) => {
         setBookList(res.items);
       })
-      .catch((e) => {
+      .catch(() => {
         // DO nothing
       })
       .finally(() => {
