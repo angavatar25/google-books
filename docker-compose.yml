@@ -13,13 +13,8 @@ services:
     ports:
       - "5173:3000"
     command: npm run dev
+    env_file:
+      - .env
     environment:
       - CHOKIDAR_USEPOLLING=true
-      - VITE_GOOGLE_BOOKS_API_BASE=https://www.googleapis.com/books/v1
-      - VITE_FIREBASE_API_KEY=AIzaSyArT3VQrynaUkQ43Iym6lVNOzLusQ5TwMo
-      - VITE_FIREBASE_AUTO_DOMAIN=books-e517c.firebaseapp.com
-      - VITE_FIREBASE_PROJECT_ID=books-e517c
-      - VITE_FIREBASE_STORAGE_BUCKET=books-e517c.firebasestorage.app
-      - VITE_FIREBASE_MESSAGING_SENDER_ID=288898218472
-      - VITE_FIREBASE_APP_ID=1:288898218472:web:21730c78e708eb5cc80c5d
     restart: unless-stopped
