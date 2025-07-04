@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import useNavigation from "../hooks/useNavigation";
 import Toast from "../components/Toast";
 import { Status } from "../enum";
+import { serializedAuthors } from "../helper/serializer";
 
 const Home = () => {
   const {
@@ -67,7 +68,7 @@ const Home = () => {
             key={`book-${book.id}`}
             addToFavourite={(payload) => addToFavourites(payload)}
             thumbnail={book.volumeInfo?.imageLinks?.thumbnail}
-            author={book.volumeInfo?.authors}
+            author={serializedAuthors(book.volumeInfo?.authors)}
             name={book.volumeInfo?.title}
             ratingValue={book.volumeInfo?.averageRating ?? 0}
             index={index}

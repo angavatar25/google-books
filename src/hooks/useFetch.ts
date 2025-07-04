@@ -10,10 +10,10 @@ const useFetch = () => {
   const [bookList, setBookList] = useState([]);
   const [favList, setFavList] = useState([]);
 
-  const [showToast, setShowToast] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
   const [flag, setFlag] = useState<Status>(Status.success);
 
   const searchBook = (keyword: string) => {
@@ -44,10 +44,12 @@ const useFetch = () => {
   };
 
   const addToFavourites = async (payload: TFavourites) => {
-    const { name: bookName } = payload;
-
     try {
-      const q = query(collection(database, 'bookFavourites'), where('name', '==', bookName));
+      const { name: bookName } = payload;
+
+      const q = query(collection(database, 'bookFavourites'),
+        where('name', '==', bookName)
+      );
       const queryDocs = await getDocs(q);
 
       if (queryDocs.empty) {

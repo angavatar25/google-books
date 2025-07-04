@@ -4,12 +4,11 @@ import { Rating } from "react-simple-star-rating";
 
 import Button from "./Button";
 import type { TFavourites } from "../interface/interface";
-import { serializedAuthors } from "../helper/serializer";
 
 interface TBook {
   thumbnail: string;
   name: string;
-  author: [] | undefined;
+  author: string;
   ratingValue: number;
   index: number;
   totalBook: number;
@@ -20,7 +19,7 @@ interface TBook {
 const Book = ({ thumbnail, name, author, ratingValue, index, totalBook, showFavButton = true, addToFavourite }: TBook) => {
   const handleAddToFavourites = () => {
     const payload = {
-      author: serializedAuthors(author ?? []),
+      author,
       name,
       thumbnail,
       rating: ratingValue,
@@ -28,6 +27,7 @@ const Book = ({ thumbnail, name, author, ratingValue, index, totalBook, showFavB
 
     addToFavourite?.(payload);
   };
+
 
   return (
     <div className={classNames({
@@ -45,7 +45,7 @@ const Book = ({ thumbnail, name, author, ratingValue, index, totalBook, showFavB
         <div className="flex justify-between w-full">
           <div className="my-auto flex flex-col gap-2">
             <p className="text-xl font-semibold max-w-52">{name}</p>
-            <p className="text-sm max-w-52">{serializedAuthors(author ?? [])}</p>
+            <p className="text-sm max-w-52">{author}</p>
             <Rating
               readonly={true}
               initialValue={ratingValue}

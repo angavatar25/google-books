@@ -4,6 +4,8 @@ import { ChevronLeft } from "lucide-react";
 import useFetch from "../hooks/useFetch";
 import Book from "../components/Book";
 import useNavigation from "../hooks/useNavigation";
+import type { TFavouritesMapping } from "../interface/interface";
+import { serializedAuthors } from "../helper/serializer";
 
 const Favourites = () => {
   const { favList, loading, fetchFavouriteBooks } = useFetch();
@@ -24,15 +26,15 @@ const Favourites = () => {
         <h1 className="text-4xl font-bold">Favourites</h1>
       </div>
       {loading && favList.length === 0 && (<p>Loading...</p>)}
-      {favList.length > 0 && favList.map((fav: any, index: number) => (
+      {favList.length > 0 && favList.map((fav: TFavouritesMapping, index: number) => (
         <Book
           key={`book-${fav.id}`}
           thumbnail={fav.thumbnail}
-          author={fav.authors}
+          author={serializedAuthors(fav.author)}
           name={fav.name}
           ratingValue={fav.averageRating ?? 0}
           index={index}
-          totalBook={fav.length}
+          totalBook={favList.length}
           showFavButton={false}
         />
       ))}
