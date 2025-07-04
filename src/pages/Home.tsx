@@ -9,7 +9,6 @@ import Button from "../components/Button";
 import useNavigation from "../hooks/useNavigation";
 import Toast from "../components/Toast";
 import { Status } from "../enum";
-import { serializedAuthors } from "../helper/serializer";
 
 const Home = () => {
   const {
@@ -65,12 +64,9 @@ const Home = () => {
         {loading && bookList.length === 0 && (<p>Loading...</p>)}
         {bookList.length > 0 && bookList.map((book: any, index: number) => (
           <Book
+            bookDetail={book.volumeInfo}
             key={`book-${book.id}`}
             addToFavourite={(payload) => addToFavourites(payload)}
-            thumbnail={book.volumeInfo?.imageLinks?.thumbnail}
-            author={serializedAuthors(book.volumeInfo?.authors)}
-            name={book.volumeInfo?.title}
-            ratingValue={book.volumeInfo?.averageRating ?? 0}
             index={index}
             totalBook={bookList.length}
             showFavButton={true}
