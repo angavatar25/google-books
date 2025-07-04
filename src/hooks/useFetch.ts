@@ -23,7 +23,7 @@ const useFetch = () => {
 
     setLoading(true);
 
-    apiFetch(`/volumes?q=${keyQuery.toString()}`)
+    apiFetch(`/volumes?${keyQuery.toString()}`)
       .then((res) => {
         setBookList(res.items);
       })
