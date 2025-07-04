@@ -44,12 +44,11 @@ const useFetch = () => {
   };
 
   const addToFavourites = async (payload: TFavourites) => {
-    console.log(payload);
     try {
-      const { title: bookName } = payload;
+      const { title: bookTitle } = payload;
 
       const q = query(collection(database, 'bookFavourites'),
-        where('name', '==', bookName)
+        where('title', '==', bookTitle)
       );
       const queryDocs = await getDocs(q);
 

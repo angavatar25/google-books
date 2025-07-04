@@ -25,6 +25,9 @@ const Favourites = () => {
         <h1 className="text-4xl font-bold">Favourites</h1>
       </div>
       {loading && favList.length === 0 && (<p>Loading...</p>)}
+      {!loading && favList.length === 0 && (
+        <p>No favourite books</p>
+      )}
       {favList.length > 0 && favList.map((fav: TFavourites, index: number) => (
         <Book
           key={`book-${fav.id}`}

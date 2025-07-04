@@ -21,7 +21,7 @@ const AppRouter = () => {
 
 function App() {
   return (
-    <div className='min-h-screen relative bg-white mx-auto max-w-[450px]'>
+    <div className='min-h-screen relative bg-yellow-50 mx-auto max-w-[450px]'>
       <Router>
         <AppRouter/>
       </Router>

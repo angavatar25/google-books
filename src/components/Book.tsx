@@ -41,11 +41,11 @@ const Book = ({ bookDetail, index, totalBook, showFavButton = true, addToFavouri
 
   return (
     <div className={classNames({
-      'border-b-2 border-gray-200 p-5 transition duration-200 ease-in-out hover:bg-gray-300': true,
+      'border-b-2 border-gray-300 p-5 transition duration-200 ease-in-out hover:bg-gray-300': true,
       'border-none': index === totalBook - 1, 
     })}>
       <div className="flex gap-5">
-        <div className="max-w-[80px] overflow-hidden rounded-xl">
+        <div className="max-w-[80px] shadow-md h-fit overflow-hidden rounded-xl">
           <img
             className="w-full"
             src={imageLinks.thumbnail}
